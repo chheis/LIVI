@@ -5,6 +5,7 @@ describe('telemetry widgets index', () => {
     expect(mod).toHaveProperty('CoolantTemp')
     expect(mod).toHaveProperty('FuelLevel')
     expect(mod).toHaveProperty('Gear')
+    expect(mod).toHaveProperty('IndicatorLights')
     expect(mod).toHaveProperty('NavFull')
     expect(mod).toHaveProperty('NavMini')
     expect(mod).toHaveProperty('OilTemp')

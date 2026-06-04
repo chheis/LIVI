@@ -23,6 +23,17 @@ jest.mock('../../../widgets', () => ({
   Rpm: ({ rpm }: { rpm: number }) => <div>Rpm:{rpm}</div>,
   RpmRing: ({ rpm }: { rpm: number }) => <div>RpmRing:{rpm}</div>,
   Gear: ({ gear }: { gear: string | number }) => <div>Gear:{String(gear)}</div>,
+  IndicatorLights: ({
+    indicatorLeft,
+    indicatorRight
+  }: {
+    indicatorLeft: boolean
+    indicatorRight: boolean
+  }) => (
+    <div>
+      IndicatorLights:{String(indicatorLeft)}:{String(indicatorRight)}
+    </div>
+  ),
   CoolantTemp: ({ coolantC }: { coolantC: number }) => <div>Coolant:{coolantC}</div>,
   OilTemp: ({ oilC }: { oilC: number }) => <div>Oil:{oilC}</div>,
   FuelLevel: ({ fuelPct }: { fuelPct: number }) => <div>Fuel:{fuelPct}</div>,
@@ -51,7 +62,8 @@ describe('Dash1', () => {
         coolantC: 91,
         oilC: 103,
         fuelPct: 67,
-        gear: 'D'
+        gear: 'D',
+        indicatorLeft: true
       }
     })
   })
@@ -63,6 +75,7 @@ describe('Dash1', () => {
     expect(screen.getByText('Rpm:3456')).toBeInTheDocument()
     expect(screen.getByText('RpmRing:3456')).toBeInTheDocument()
     expect(screen.getByText('Gear:D')).toBeInTheDocument()
+    expect(screen.getByText('IndicatorLights:true:false')).toBeInTheDocument()
     expect(screen.getByText('Coolant:91')).toBeInTheDocument()
     expect(screen.getByText('Oil:103')).toBeInTheDocument()
     expect(screen.getByText('Fuel:67')).toBeInTheDocument()
@@ -80,6 +93,7 @@ describe('Dash1', () => {
     expect(screen.getByText('Rpm:0')).toBeInTheDocument()
     expect(screen.getByText('RpmRing:0')).toBeInTheDocument()
     expect(screen.getByText('Gear:P')).toBeInTheDocument()
+    expect(screen.getByText('IndicatorLights:false:false')).toBeInTheDocument()
     expect(screen.getByText('Coolant:0')).toBeInTheDocument()
     expect(screen.getByText('Oil:0')).toBeInTheDocument()
     expect(screen.getByText('Fuel:0')).toBeInTheDocument()
@@ -95,6 +109,19 @@ describe('Dash1', () => {
     render(<Dash1 />)
 
     expect(screen.getByText('Gear:3')).toBeInTheDocument()
+  })
+
+  test('falls back to turn and hazards for indicator state', () => {
+    useVehicleTelemetryMock.mockReturnValue({
+      telemetry: {
+        turn: 'right',
+        hazards: true
+      }
+    })
+
+    render(<Dash1 />)
+
+    expect(screen.getByText('IndicatorLights:true:true')).toBeInTheDocument()
   })
 
   test('observes host element with ResizeObserver', () => {

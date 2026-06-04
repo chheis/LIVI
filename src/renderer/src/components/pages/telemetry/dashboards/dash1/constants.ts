@@ -11,6 +11,9 @@ export const SPEED_GROUP_W = 720
 export const RPM_RIGHT = 620
 export const RPM_TOP = 82
 
+export const INDICATORS_X = CENTER_X
+export const INDICATORS_Y = 118
+
 export const NAV_X = CENTER_X
 export const NAV_Y = 540
 

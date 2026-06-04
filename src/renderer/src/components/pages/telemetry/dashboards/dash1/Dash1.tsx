@@ -2,13 +2,25 @@ import { Box, useTheme } from '@mui/material'
 import { useEffect, useRef, useState } from 'react'
 import { DashShell } from '../../components/DashShell'
 import { useVehicleTelemetry } from '../../hooks/useVehicleTelemetry'
-import { CoolantTemp, FuelLevel, Gear, NavMini, OilTemp, Rpm, RpmRing, Speed } from '../../widgets'
+import {
+  CoolantTemp,
+  FuelLevel,
+  Gear,
+  IndicatorLights,
+  NavMini,
+  OilTemp,
+  Rpm,
+  RpmRing,
+  Speed
+} from '../../widgets'
 import {
   BASE_H,
   BASE_W,
   CENTER_X,
   GEAR_X,
   GEAR_Y,
+  INDICATORS_X,
+  INDICATORS_Y,
   METRICS_RIGHT,
   METRICS_TOP,
   NAV_Y,
@@ -28,6 +40,10 @@ export function Dash1() {
   const coolantC = typeof telemetry?.coolantC === 'number' ? telemetry.coolantC : 0
   const oilC = typeof telemetry?.oilC === 'number' ? telemetry.oilC : 0
   const fuelPct = typeof telemetry?.fuelPct === 'number' ? telemetry.fuelPct : 0
+  const indicatorLeft =
+    telemetry?.hazards === true || telemetry?.indicatorLeft === true || telemetry?.turn === 'left'
+  const indicatorRight =
+    telemetry?.hazards === true || telemetry?.indicatorRight === true || telemetry?.turn === 'right'
 
   const gear: string | number = telemetry?.gear ?? 'P'
 
@@ -136,6 +152,21 @@ export function Dash1() {
             }}
           >
             <NavMini iconSize={84} />
+          </Box>
+
+          <Box
+            sx={{
+              position: 'absolute',
+              left: INDICATORS_X,
+              top: INDICATORS_Y,
+              transform: 'translate(-50%, -50%)',
+              width: 180,
+              height: 56,
+              display: 'grid',
+              placeItems: 'center'
+            }}
+          >
+            <IndicatorLights indicatorLeft={indicatorLeft} indicatorRight={indicatorRight} />
           </Box>
 
           {/* GEAR — sits at the midpoint between center and the visible

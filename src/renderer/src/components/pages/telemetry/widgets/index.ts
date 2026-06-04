@@ -1,6 +1,7 @@
 export * from './CoolantTemp'
 export * from './FuelLevel'
 export * from './Gear'
+export * from './IndicatorLights'
 export * from './NavFull'
 export * from './NavMini'
 export * from './OilTemp'

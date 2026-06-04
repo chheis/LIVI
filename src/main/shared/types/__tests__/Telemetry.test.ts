@@ -3,6 +3,7 @@ import { isWired, routes, TELEMETRY_ROUTES, type TelemetryReceiver } from '../Te
 describe('routes', () => {
   test('returns the declared entry for a known key', () => {
     expect(routes('speedKph')).toEqual(TELEMETRY_ROUTES.speedKph)
+    expect(routes('indicatorLeft')).toEqual(TELEMETRY_ROUTES.indicatorLeft)
   })
 
   test('returns a fully-false fallback for an unknown key', () => {
@@ -14,6 +15,9 @@ describe('isWired', () => {
   test.each<[TelemetryReceiver, string, boolean]>([
     ['aa', 'speedKph', true],
     ['dongle', 'gps', true],
+    ['dash', 'indicatorLeft', true],
+    ['dash', 'indicatorRight', true],
+    ['aa', 'indicatorLeft', false],
     ['dash', 'ts', true],
     ['aa', 'ts', false],
     ['dongle', 'speedKph', false]
