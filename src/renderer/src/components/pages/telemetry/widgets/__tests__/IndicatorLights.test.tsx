@@ -19,7 +19,7 @@ describe('IndicatorLights', () => {
   })
 
   test('blinks the left indicator while it stays enabled', () => {
-    render(<IndicatorLights indicatorLeft />)
+    render(<IndicatorLights turn="left" />)
 
     expect(screen.getByLabelText('Left indicator')).toHaveAttribute('data-active', 'true')
 
@@ -37,7 +37,7 @@ describe('IndicatorLights', () => {
   })
 
   test('can blink both indicators together', () => {
-    render(<IndicatorLights indicatorLeft indicatorRight />)
+    render(<IndicatorLights hazards />)
 
     expect(screen.getByLabelText('Left indicator')).toHaveAttribute('data-active', 'true')
     expect(screen.getByLabelText('Right indicator')).toHaveAttribute('data-active', 'true')

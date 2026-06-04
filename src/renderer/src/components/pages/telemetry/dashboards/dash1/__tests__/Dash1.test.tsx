@@ -24,14 +24,16 @@ jest.mock('../../../widgets', () => ({
   RpmRing: ({ rpm }: { rpm: number }) => <div>RpmRing:{rpm}</div>,
   Gear: ({ gear }: { gear: string | number }) => <div>Gear:{String(gear)}</div>,
   IndicatorLights: ({
-    indicatorLeft,
-    indicatorRight
+    turn,
+    hazards
   }: {
-    indicatorLeft: boolean
-    indicatorRight: boolean
+    turn?: 'none' | 'left' | 'right'
+    hazards?: boolean
   }) => (
     <div>
-      IndicatorLights:{String(indicatorLeft)}:{String(indicatorRight)}
+      IndicatorLights:{String(hazards === true || turn === 'left')}:{String(
+        hazards === true || turn === 'right'
+      )}
     </div>
   ),
   CoolantTemp: ({ coolantC }: { coolantC: number }) => <div>Coolant:{coolantC}</div>,

@@ -40,8 +40,6 @@ export function Dash1() {
   const coolantC = typeof telemetry?.coolantC === 'number' ? telemetry.coolantC : 0
   const oilC = typeof telemetry?.oilC === 'number' ? telemetry.oilC : 0
   const fuelPct = typeof telemetry?.fuelPct === 'number' ? telemetry.fuelPct : 0
-  const indicatorLeft = telemetry?.hazards === true || telemetry?.turn === 'left'
-  const indicatorRight = telemetry?.hazards === true || telemetry?.turn === 'right'
 
   const gear: string | number = telemetry?.gear ?? 'P'
 
@@ -164,7 +162,7 @@ export function Dash1() {
               placeItems: 'center'
             }}
           >
-            <IndicatorLights indicatorLeft={indicatorLeft} indicatorRight={indicatorRight} />
+            <IndicatorLights turn={telemetry?.turn} hazards={telemetry?.hazards} />
           </Box>
 
           {/* GEAR — sits at the midpoint between center and the visible
