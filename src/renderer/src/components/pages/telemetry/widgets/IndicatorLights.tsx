@@ -26,7 +26,6 @@ export function IndicatorLights({
       return
     }
 
-    setBlinkOn(true)
     const interval = window.setInterval(() => setBlinkOn((prev) => !prev), BLINK_INTERVAL_MS)
     return () => window.clearInterval(interval)
   }, [hasActiveIndicator])
