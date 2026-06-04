@@ -35,7 +35,7 @@
 //    { speedKph: 73, rpm: 2100, gear: 'D' }          // small block
 //    { gps: { lat: 52.5, lng: 13.4, heading: 90 } }  // grouped block
 //    { speedKph: 73, gps: { lat: 52.5, lng: 13.4 },  // mixed
-//      lights: true, turn: 'left', indicatorLeft: true }
+//      lights: true, turn: 'left' }
 //
 //  Nested blocks (`gps`, `can`) are shallow-merged on a per-field basis: a
 //  push of `{ gps: { lat: 50 } }` keeps the previously known `lng`.
@@ -55,7 +55,6 @@
 //    reverse                         ✓     ✓ (gear)   ·
 //    steeringDeg                     ✓     ·          ·
 //    turn (blinker)                  ✓     ✓          ·
-//    indicatorLeft / indicatorRight  ✓     ·          ·
 //    lights / highBeam / hazards     ✓     ✓          ·
 //    parkingBrake                    ✓     ✓          ·
 //    nightMode                       ✓     ✓          ✓
@@ -157,10 +156,6 @@ export type TelemetryPayload = {
   hazards?: boolean
   /** Turn indicator state. */
   turn?: 'none' | 'left' | 'right'
-  /** Left indicator state for dashboard widgets that blink locally. */
-  indicatorLeft?: boolean
-  /** Right indicator state for dashboard widgets that blink locally. */
-  indicatorRight?: boolean
   /** Parking brake engaged. */
   parkingBrake?: boolean
 
@@ -283,8 +278,6 @@ export const TELEMETRY_ROUTES = {
   highBeam: { dash: true, aa: true, dongle: false },
   hazards: { dash: true, aa: true, dongle: false },
   turn: { dash: true, aa: true, dongle: false },
-  indicatorLeft: { dash: true, aa: false, dongle: false },
-  indicatorRight: { dash: true, aa: false, dongle: false },
   parkingBrake: { dash: true, aa: true, dongle: false },
 
   // Temperatures

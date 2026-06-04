@@ -63,7 +63,7 @@ describe('Dash1', () => {
         oilC: 103,
         fuelPct: 67,
         gear: 'D',
-        indicatorLeft: true
+        turn: 'left'
       }
     })
   })

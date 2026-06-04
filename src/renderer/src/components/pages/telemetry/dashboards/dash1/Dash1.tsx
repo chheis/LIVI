@@ -40,10 +40,8 @@ export function Dash1() {
   const coolantC = typeof telemetry?.coolantC === 'number' ? telemetry.coolantC : 0
   const oilC = typeof telemetry?.oilC === 'number' ? telemetry.oilC : 0
   const fuelPct = typeof telemetry?.fuelPct === 'number' ? telemetry.fuelPct : 0
-  const indicatorLeft =
-    telemetry?.hazards === true || telemetry?.indicatorLeft === true || telemetry?.turn === 'left'
-  const indicatorRight =
-    telemetry?.hazards === true || telemetry?.indicatorRight === true || telemetry?.turn === 'right'
+  const indicatorLeft = telemetry?.hazards === true || telemetry?.turn === 'left'
+  const indicatorRight = telemetry?.hazards === true || telemetry?.turn === 'right'
 
   const gear: string | number = telemetry?.gear ?? 'P'
 
