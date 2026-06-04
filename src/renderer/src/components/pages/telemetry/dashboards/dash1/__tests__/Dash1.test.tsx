@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { act, render, screen, waitFor } from '@testing-library/react'
 import { Dash1 } from '../Dash1'
 
 const useVehicleTelemetryMock = jest.fn()
@@ -133,7 +133,9 @@ describe('Dash1', () => {
   test('handles ResizeObserver update with valid size without breaking rendered widgets', async () => {
     render(<Dash1 />)
 
-    resizeObserverCallback?.([{ contentRect: { width: 640, height: 360 } }])
+    act(() => {
+      resizeObserverCallback?.([{ contentRect: { width: 640, height: 360 } }])
+    })
 
     await waitFor(() => {
       expect(screen.getByText('Speed:123')).toBeInTheDocument()
@@ -145,7 +147,9 @@ describe('Dash1', () => {
   test('falls back safely when ResizeObserver reports invalid size', async () => {
     render(<Dash1 />)
 
-    resizeObserverCallback?.([{ contentRect: { width: 0, height: 0 } }])
+    act(() => {
+      resizeObserverCallback?.([{ contentRect: { width: 0, height: 0 } }])
+    })
 
     await waitFor(() => {
       expect(screen.getByText('Speed:123')).toBeInTheDocument()
@@ -165,7 +169,9 @@ describe('Dash1', () => {
   test('ignores ResizeObserver entries without contentRect', async () => {
     render(<Dash1 />)
 
-    resizeObserverCallback?.([{} as never])
+    act(() => {
+      resizeObserverCallback?.([{} as never])
+    })
 
     await waitFor(() => {
       expect(screen.getByText('Speed:123')).toBeInTheDocument()
